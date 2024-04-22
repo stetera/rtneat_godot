@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://dp7qha4fh2qux"]
+
+[ext_resource type="Script" path="res://Main.gd" id="1_11el6"]
+[ext_resource type="Texture2D" uid="uid://80s6oc7naaa6" path="res://Demo/Xor/WhiteSphere.png" id="2_1yvy5"]
+
+[node name="Main" type="Node2D"]
+position = Vector2(0, 128)
+script = ExtResource("1_11el6")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 1153.0
+offset_bottom = 300.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "rtNEAT Library
+"
+horizontal_alignment = 1
+
+[node name="Launchers" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BioLauncher" type="TextureButton" parent="MarginContainer/VBoxContainer/Launchers"]
+layout_mode = 2
+texture_normal = ExtResource("2_1yvy5")
+
+[node name="XorLauncher" type="TextureButton" parent="MarginContainer/VBoxContainer/Launchers"]
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("2_1yvy5")

@@ -1,0 +1,156 @@
+[gd_scene load_steps=13 format=3 uid="uid://ceadi4x0dom1o"]
+
+[ext_resource type="Script" path="res://Demo/Bio/BioMain.gd" id="1_qncnd"]
+[ext_resource type="Script" path="res://Demo/Bio/Camera/Camera2D.gd" id="1_wqs8q"]
+[ext_resource type="Texture2D" uid="uid://bsa4yh827rm4f" path="res://Demo/Bio/World/Background/GradientBackground.png" id="2_wags0"]
+[ext_resource type="Texture2D" uid="uid://c41gn7w12w6sb" path="res://Demo/Bio/World/Background/BackgroundBlur.png" id="3_omngf"]
+[ext_resource type="Texture2D" uid="uid://bohc88ugnjdhp" path="res://Demo/Bio/World/Background/Blurred/Background2K2Blurred.png" id="4_ctrhm"]
+[ext_resource type="Texture2D" uid="uid://bx73nnckbxoes" path="res://Demo/Bio/World/Background/Blurred/PointySphericalBlurred.png" id="5_h1hvk"]
+[ext_resource type="Texture2D" uid="uid://db2sg14nwqlae" path="res://Demo/Bio/World/Background/Blurred/BoneTypeStructureMegaBlurred.png" id="6_5gw1q"]
+[ext_resource type="Texture2D" uid="uid://ql5g7ivawx0m" path="res://Demo/Bio/World/Background/Blurred/BackgroundSpecs2K2Blurred.png" id="7_r8eb0"]
+[ext_resource type="Texture2D" uid="uid://btg7384p7pov5" path="res://Demo/Bio/World/Background/Blurred/SphericalStructureHighBlur.png" id="8_ywwwc"]
+[ext_resource type="Texture2D" uid="uid://cjou42kuo2i5t" path="res://Demo/Bio/World/Background/Blurred/SphericalStructureBlurred.png" id="9_mscr4"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(1412.7, 1412.95)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(10000, 10000)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_qncnd")
+
+[node name="Start" type="Marker2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+script = ExtResource("1_wqs8q")
+
+[node name="SpawnArea" type="Area2D" parent="."]
+
+[node name="SpawnShape" type="CollisionShape2D" parent="SpawnArea"]
+position = Vector2(8.00146, -0.00146484)
+scale = Vector2(1.19041, 1.20396)
+shape = SubResource("1")
+disabled = true
+
+[node name="Spawned" type="Node2D" parent="SpawnArea"]
+
+[node name="FoodArea" type="Area2D" parent="."]
+
+[node name="SpawnShape" type="CollisionShape2D" parent="FoodArea"]
+position = Vector2(17, -10)
+shape = SubResource("2")
+disabled = true
+
+[node name="SpawnedFood" type="Node2D" parent="FoodArea"]
+
+[node name="ParallaxGradient" type="ParallaxBackground" parent="."]
+layer = -128
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxGradient"]
+motion_mirroring = Vector2(1024, 1024)
+
+[node name="Sprite" type="Sprite2D" parent="ParallaxGradient/ParallaxLayer"]
+scale = Vector2(10, 10)
+texture = ExtResource("2_wags0")
+
+[node name="ParallaxBlur" type="ParallaxBackground" parent="."]
+layer = -120
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBlur"]
+scale = Vector2(5, 5)
+motion_scale = Vector2(0, 0)
+motion_offset = Vector2(2048, 2048)
+motion_mirroring = Vector2(4096, 4096)
+
+[node name="Sprite" type="Sprite2D" parent="ParallaxBlur/ParallaxLayer"]
+scale = Vector2(4, 4)
+texture = ExtResource("3_omngf")
+
+[node name="ParallaxDebris" type="ParallaxBackground" parent="."]
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxDebris"]
+motion_scale = Vector2(0.005, 0.005)
+motion_offset = Vector2(512, 0)
+motion_mirroring = Vector2(1024, 1024)
+
+[node name="Sprite" type="Sprite2D" parent="ParallaxDebris/ParallaxLayer2"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_ctrhm")
+
+[node name="ParallaxSmallBeings" type="ParallaxBackground" parent="."]
+layer = -110
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxSmallBeings"]
+motion_scale = Vector2(0.01, 0.01)
+motion_mirroring = Vector2(2048, 2048)
+
+[node name="Sprite" type="Sprite2D" parent="ParallaxSmallBeings/ParallaxLayer2"]
+modulate = Color(0.541176, 0.866667, 0.976471, 1)
+position = Vector2(-260, -60)
+scale = Vector2(0.359375, 0.390625)
+texture = ExtResource("5_h1hvk")
+
+[node name="Sprite4" type="Sprite2D" parent="ParallaxSmallBeings/ParallaxLayer2"]
+modulate = Color(0.541176, 0.866667, 0.976471, 1)
+position = Vector2(-316, 76)
+rotation = -3.73932
+scale = Vector2(0.0990948, 0.0818461)
+texture = ExtResource("6_5gw1q")
+
+[node name="Sprite2" type="Sprite2D" parent="ParallaxSmallBeings/ParallaxLayer2"]
+position = Vector2(-124, -40)
+texture = ExtResource("7_r8eb0")
+
+[node name="Sprite3" type="Sprite2D" parent="ParallaxSmallBeings/ParallaxLayer2"]
+self_modulate = Color(0.541176, 0.866667, 0.976471, 1)
+position = Vector2(-668, -116)
+rotation = -0.00192243
+scale = Vector2(0.188329, 0.204761)
+texture = ExtResource("8_ywwwc")
+
+[node name="ParallaxLargeBeings" type="ParallaxBackground" parent="."]
+layer = -60
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxLargeBeings"]
+motion_scale = Vector2(0.015, 0.015)
+motion_mirroring = Vector2(2048, 2048)
+
+[node name="Sprite2" type="Sprite2D" parent="ParallaxLargeBeings/ParallaxLayer2"]
+self_modulate = Color(0.541176, 0.866667, 0.976471, 1)
+position = Vector2(-1160, -248)
+rotation = -1.04705
+scale = Vector2(0.233624, 0.217292)
+texture = ExtResource("6_5gw1q")
+
+[node name="Sprite3" type="Sprite2D" parent="ParallaxLargeBeings/ParallaxLayer2"]
+self_modulate = Color(0.541176, 0.866667, 0.976471, 1)
+position = Vector2(-11.9999, -556)
+rotation = -0.0451791
+scale = Vector2(0.751325, 0.816343)
+texture = ExtResource("9_mscr4")
+
+[node name="Sprite4" type="Sprite2D" parent="ParallaxLargeBeings/ParallaxLayer2"]
+modulate = Color(0.541176, 0.866667, 0.976471, 1)
+position = Vector2(-464, 320)
+rotation = 0.0208845
+scale = Vector2(0.40726, 0.430575)
+texture = ExtResource("8_ywwwc")
+
+[node name="Sprite5" type="Sprite2D" parent="ParallaxLargeBeings/ParallaxLayer2"]
+position = Vector2(-460, -152)
+rotation = -0.0814051
+scale = Vector2(0.778711, 0.58317)
+texture = ExtResource("7_r8eb0")
