@@ -4,8 +4,6 @@ An implementation of rtNEAT by Kenneth O. Stanley for neuroevolution in a real-t
 
 This project is written in GDScript for Godot 4.2.1
 
-This project is not final and has missing aspects. (see: <i>"What is missing"</i>)
-
 ## FAQ
 
 - Where to find the engine: [Godot](https://godotengine.org/)
@@ -14,9 +12,9 @@ This project is not final and has missing aspects. (see: <i>"What is missing"</i
 
 ## What is missing...
 
-General:
 - Saving and loading genomes
 - Saving and loading scenes
+- Binary with saving and loading
 
 
 Special thanks to Paul Straberger for the first <i>NEAT for Godot</i> implementation.
