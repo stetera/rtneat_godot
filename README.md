@@ -6,7 +6,9 @@ This project is written in GDScript for Godot 4.2.1
 
 ## FAQ
 
-- Where to find the engine: [Godot](https://godotengine.org/)
+See the wiki for general information: [wiki](https://github.com/stetera/rtneat_godot/wiki)
+
+- About the engine see the official site [Godot](https://godotengine.org/) or the wiki [overview](https://github.com/stetera/rtneat_godot/wiki/About-Godot)
 - How to use this for a project: [Usage](https://github.com/stetera/rtneat_godot/wiki/Usage)
 - What are the demos: [Demos](https://github.com/stetera/rtneat_godot/wiki/About-the-Demos)
 
