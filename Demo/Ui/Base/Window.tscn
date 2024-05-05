@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://s36rpgjfgsn8"]
+
+[ext_resource type="Script" path="res://Demo/Ui/Base/WindowHeader.gd" id="1_pshtg"]
+[ext_resource type="Texture2D" uid="uid://crrefcft3bvh" path="res://Demo/Ui/Icons/Close.png" id="2_hanyc"]
+
+[node name="Window" type="MarginContainer"]
+offset_right = 365.0
+offset_bottom = 246.0
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 2
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Header" type="MarginContainer" parent="Layout"]
+layout_mode = 2
+script = ExtResource("1_pshtg")
+
+[node name="Background" type="Panel" parent="Layout/Header"]
+layout_mode = 2
+
+[node name="HeaderColumns" type="HBoxContainer" parent="Layout/Header"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="TabNameContainer" type="MarginContainer" parent="Layout/Header/HeaderColumns"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="TabName" type="Label" parent="Layout/Header/HeaderColumns/TabNameContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Species List
+"
+
+[node name="CloseButton" type="Button" parent="Layout/Header/HeaderColumns"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+size_flags_horizontal = 10
+icon = ExtResource("2_hanyc")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="gui_input" from="Layout/Header" to="Layout/Header" method="_on_gui_input"]
+[connection signal="button_down" from="Layout/Header/HeaderColumns/CloseButton" to="Layout/Header" method="_on_close_button_button_down"]

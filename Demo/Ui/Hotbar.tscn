@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://b4mwu86b332df"]
+
+[ext_resource type="Script" path="res://Demo/Ui/Hotbar.gd" id="1_l5nhr"]
+[ext_resource type="Theme" uid="uid://c1vth2d2fdi2e" path="res://Demo/Ui/Other/DefaultTheme.tres" id="2_lfdqq"]
+[ext_resource type="Texture2D" uid="uid://btsrbxk6qdkdj" path="res://Demo/Ui/Icons/Pause.png" id="2_wyh82"]
+[ext_resource type="Texture2D" uid="uid://bh23pc18e4rve" path="res://Demo/Ui/Icons/Play.png" id="3_sd81y"]
+[ext_resource type="Texture2D" uid="uid://mpxysbsxgs31" path="res://Demo/Ui/Icons/DNA.png" id="4_6488c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u8gr2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xpa7p"]
+
+[sub_resource type="Theme" id="Theme_wxmbd"]
+
+[node name="Hotbar" type="MarginContainer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -104.0
+offset_right = 104.0
+offset_bottom = 72.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_l5nhr")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Pause" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 10
+theme = ExtResource("2_lfdqq")
+theme_type_variation = &"FlatButton"
+theme_override_colors/font_hover_pressed_color = Color(0.203922, 1, 0.184314, 1)
+theme_override_colors/icon_pressed_color = Color(0.388235, 0.619608, 0.909804, 1)
+theme_override_colors/icon_hover_color = Color(0.388235, 0.698039, 0.54902, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u8gr2")
+icon = ExtResource("2_wyh82")
+expand_icon = true
+
+[node name="Play" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 6
+theme = ExtResource("2_lfdqq")
+theme_type_variation = &"FlatButton"
+theme_override_colors/icon_pressed_color = Color(0.388235, 0.619608, 0.909804, 1)
+theme_override_colors/icon_hover_color = Color(0.388235, 0.698039, 0.54902, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xpa7p")
+icon = ExtResource("3_sd81y")
+expand_icon = true
+
+[node name="Panel" type="Panel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(7, 0)
+layout_mode = 2
+theme = SubResource("Theme_wxmbd")
+
+[node name="Species" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 6
+theme = ExtResource("2_lfdqq")
+theme_type_variation = &"FlatButton"
+theme_override_colors/icon_pressed_color = Color(0.388235, 0.619608, 0.909804, 1)
+theme_override_colors/icon_hover_color = Color(0.388235, 0.698039, 0.54902, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xpa7p")
+icon = ExtResource("4_6488c")
+expand_icon = true
+
+[connection signal="pressed" from="HBoxContainer/Pause" to="." method="_on_pause_pressed"]
+[connection signal="pressed" from="HBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="HBoxContainer/Species" to="." method="_on_species_pressed"]

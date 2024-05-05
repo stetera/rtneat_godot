@@ -1,0 +1,488 @@
+[gd_scene load_steps=8 format=3 uid="uid://cgvd8xruq7l85"]
+
+[ext_resource type="PackedScene" uid="uid://s36rpgjfgsn8" path="res://Demo/Ui/Base/Window.tscn" id="1_pcf1u"]
+[ext_resource type="Script" path="res://Demo/Ui/SpeciesUi/SpeciesView.gd" id="2_m0w72"]
+[ext_resource type="Theme" uid="uid://c1vth2d2fdi2e" path="res://Demo/Ui/Other/DefaultTheme.tres" id="3_gmug2"]
+[ext_resource type="Texture2D" uid="uid://mpxysbsxgs31" path="res://Demo/Ui/Icons/DNA.png" id="4_cndqj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y54rc"]
+bg_color = Color(0.239216, 0.239216, 0.239216, 1)
+
+[sub_resource type="FontFile" id="FontFile_pqf0s"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/3/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/4/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/6/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/7/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/8/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/9/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/11/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/2/0/ascent = 0.0
+cache/0/2/0/descent = 0.0
+cache/0/2/0/underline_position = 0.0
+cache/0/2/0/underline_thickness = 0.0
+cache/0/2/0/scale = 1.0
+cache/0/2/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/3/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/4/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/6/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/7/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/8/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/9/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/11/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/3/0/ascent = 0.0
+cache/0/3/0/descent = 0.0
+cache/0/3/0/underline_position = 0.0
+cache/0/3/0/underline_thickness = 0.0
+cache/0/3/0/scale = 1.0
+cache/0/3/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/3/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/3/0/kerning_overrides/3/0 = Vector2(0, 0)
+cache/0/3/0/kerning_overrides/4/0 = Vector2(0, 0)
+cache/0/3/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/3/0/kerning_overrides/6/0 = Vector2(0, 0)
+cache/0/3/0/kerning_overrides/7/0 = Vector2(0, 0)
+cache/0/3/0/kerning_overrides/8/0 = Vector2(0, 0)
+cache/0/3/0/kerning_overrides/9/0 = Vector2(0, 0)
+cache/0/3/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/3/0/kerning_overrides/11/0 = Vector2(0, 0)
+cache/0/3/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/3/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/3/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/4/0/ascent = 0.0
+cache/0/4/0/descent = 0.0
+cache/0/4/0/underline_position = 0.0
+cache/0/4/0/underline_thickness = 0.0
+cache/0/4/0/scale = 1.0
+cache/0/4/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/4/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/4/0/kerning_overrides/3/0 = Vector2(0, 0)
+cache/0/4/0/kerning_overrides/4/0 = Vector2(0, 0)
+cache/0/4/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/4/0/kerning_overrides/6/0 = Vector2(0, 0)
+cache/0/4/0/kerning_overrides/7/0 = Vector2(0, 0)
+cache/0/4/0/kerning_overrides/8/0 = Vector2(0, 0)
+cache/0/4/0/kerning_overrides/9/0 = Vector2(0, 0)
+cache/0/4/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/4/0/kerning_overrides/11/0 = Vector2(0, 0)
+cache/0/4/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/4/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/4/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/5/0/ascent = 0.0
+cache/0/5/0/descent = 0.0
+cache/0/5/0/underline_position = 0.0
+cache/0/5/0/underline_thickness = 0.0
+cache/0/5/0/scale = 1.0
+cache/0/5/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/5/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/5/0/kerning_overrides/3/0 = Vector2(0, 0)
+cache/0/5/0/kerning_overrides/4/0 = Vector2(0, 0)
+cache/0/5/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/5/0/kerning_overrides/6/0 = Vector2(0, 0)
+cache/0/5/0/kerning_overrides/7/0 = Vector2(0, 0)
+cache/0/5/0/kerning_overrides/8/0 = Vector2(0, 0)
+cache/0/5/0/kerning_overrides/9/0 = Vector2(0, 0)
+cache/0/5/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/5/0/kerning_overrides/11/0 = Vector2(0, 0)
+cache/0/5/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/5/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/5/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/6/0/ascent = 0.0
+cache/0/6/0/descent = 0.0
+cache/0/6/0/underline_position = 0.0
+cache/0/6/0/underline_thickness = 0.0
+cache/0/6/0/scale = 1.0
+cache/0/6/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/6/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/6/0/kerning_overrides/3/0 = Vector2(0, 0)
+cache/0/6/0/kerning_overrides/4/0 = Vector2(0, 0)
+cache/0/6/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/6/0/kerning_overrides/6/0 = Vector2(0, 0)
+cache/0/6/0/kerning_overrides/7/0 = Vector2(0, 0)
+cache/0/6/0/kerning_overrides/8/0 = Vector2(0, 0)
+cache/0/6/0/kerning_overrides/9/0 = Vector2(0, 0)
+cache/0/6/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/6/0/kerning_overrides/11/0 = Vector2(0, 0)
+cache/0/6/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/6/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/6/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/7/0/ascent = 0.0
+cache/0/7/0/descent = 0.0
+cache/0/7/0/underline_position = 0.0
+cache/0/7/0/underline_thickness = 0.0
+cache/0/7/0/scale = 1.0
+cache/0/7/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/7/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/7/0/kerning_overrides/3/0 = Vector2(0, 0)
+cache/0/7/0/kerning_overrides/4/0 = Vector2(0, 0)
+cache/0/7/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/7/0/kerning_overrides/6/0 = Vector2(0, 0)
+cache/0/7/0/kerning_overrides/7/0 = Vector2(0, 0)
+cache/0/7/0/kerning_overrides/8/0 = Vector2(0, 0)
+cache/0/7/0/kerning_overrides/9/0 = Vector2(0, 0)
+cache/0/7/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/7/0/kerning_overrides/11/0 = Vector2(0, 0)
+cache/0/7/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/7/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/7/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/8/0/ascent = 0.0
+cache/0/8/0/descent = 0.0
+cache/0/8/0/underline_position = 0.0
+cache/0/8/0/underline_thickness = 0.0
+cache/0/8/0/scale = 1.0
+cache/0/8/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/8/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/8/0/kerning_overrides/3/0 = Vector2(0, 0)
+cache/0/8/0/kerning_overrides/4/0 = Vector2(0, 0)
+cache/0/8/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/8/0/kerning_overrides/6/0 = Vector2(0, 0)
+cache/0/8/0/kerning_overrides/7/0 = Vector2(0, 0)
+cache/0/8/0/kerning_overrides/8/0 = Vector2(0, 0)
+cache/0/8/0/kerning_overrides/9/0 = Vector2(0, 0)
+cache/0/8/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/8/0/kerning_overrides/11/0 = Vector2(0, 0)
+cache/0/8/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/8/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/8/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/9/0/ascent = 0.0
+cache/0/9/0/descent = 0.0
+cache/0/9/0/underline_position = 0.0
+cache/0/9/0/underline_thickness = 0.0
+cache/0/9/0/scale = 1.0
+cache/0/9/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/9/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/9/0/kerning_overrides/3/0 = Vector2(0, 0)
+cache/0/9/0/kerning_overrides/4/0 = Vector2(0, 0)
+cache/0/9/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/9/0/kerning_overrides/6/0 = Vector2(0, 0)
+cache/0/9/0/kerning_overrides/7/0 = Vector2(0, 0)
+cache/0/9/0/kerning_overrides/8/0 = Vector2(0, 0)
+cache/0/9/0/kerning_overrides/9/0 = Vector2(0, 0)
+cache/0/9/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/9/0/kerning_overrides/11/0 = Vector2(0, 0)
+cache/0/9/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/9/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/9/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/10/0/ascent = 0.0
+cache/0/10/0/descent = 0.0
+cache/0/10/0/underline_position = 0.0
+cache/0/10/0/underline_thickness = 0.0
+cache/0/10/0/scale = 1.0
+cache/0/10/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/10/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/10/0/kerning_overrides/3/0 = Vector2(0, 0)
+cache/0/10/0/kerning_overrides/4/0 = Vector2(0, 0)
+cache/0/10/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/10/0/kerning_overrides/6/0 = Vector2(0, 0)
+cache/0/10/0/kerning_overrides/7/0 = Vector2(0, 0)
+cache/0/10/0/kerning_overrides/8/0 = Vector2(0, 0)
+cache/0/10/0/kerning_overrides/9/0 = Vector2(0, 0)
+cache/0/10/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/10/0/kerning_overrides/11/0 = Vector2(0, 0)
+cache/0/10/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/10/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/10/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/11/0/ascent = 0.0
+cache/0/11/0/descent = 0.0
+cache/0/11/0/underline_position = 0.0
+cache/0/11/0/underline_thickness = 0.0
+cache/0/11/0/scale = 1.0
+cache/0/11/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/11/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/11/0/kerning_overrides/3/0 = Vector2(0, 0)
+cache/0/11/0/kerning_overrides/4/0 = Vector2(0, 0)
+cache/0/11/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/11/0/kerning_overrides/6/0 = Vector2(0, 0)
+cache/0/11/0/kerning_overrides/7/0 = Vector2(0, 0)
+cache/0/11/0/kerning_overrides/8/0 = Vector2(0, 0)
+cache/0/11/0/kerning_overrides/9/0 = Vector2(0, 0)
+cache/0/11/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/11/0/kerning_overrides/11/0 = Vector2(0, 0)
+cache/0/11/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/11/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/11/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/12/0/ascent = 0.0
+cache/0/12/0/descent = 0.0
+cache/0/12/0/underline_position = 0.0
+cache/0/12/0/underline_thickness = 0.0
+cache/0/12/0/scale = 1.0
+cache/0/12/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/3/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/4/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/6/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/7/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/8/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/9/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/11/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/13/0/ascent = 0.0
+cache/0/13/0/descent = 0.0
+cache/0/13/0/underline_position = 0.0
+cache/0/13/0/underline_thickness = 0.0
+cache/0/13/0/scale = 1.0
+cache/0/13/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/13/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/13/0/kerning_overrides/3/0 = Vector2(0, 0)
+cache/0/13/0/kerning_overrides/4/0 = Vector2(0, 0)
+cache/0/13/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/13/0/kerning_overrides/6/0 = Vector2(0, 0)
+cache/0/13/0/kerning_overrides/7/0 = Vector2(0, 0)
+cache/0/13/0/kerning_overrides/8/0 = Vector2(0, 0)
+cache/0/13/0/kerning_overrides/9/0 = Vector2(0, 0)
+cache/0/13/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/13/0/kerning_overrides/11/0 = Vector2(0, 0)
+cache/0/13/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/13/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/13/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/14/0/ascent = 0.0
+cache/0/14/0/descent = 0.0
+cache/0/14/0/underline_position = 0.0
+cache/0/14/0/underline_thickness = 0.0
+cache/0/14/0/scale = 1.0
+cache/0/14/0/glyphs/0/advance = Vector2(0, 0)
+cache/0/14/0/glyphs/0/offset = Vector2(0, 0)
+cache/0/14/0/glyphs/0/size = Vector2(0, 0)
+cache/0/14/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
+cache/0/14/0/glyphs/0/texture_idx = -1
+cache/0/14/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/3/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/4/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/6/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/7/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/8/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/9/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/11/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/14/0 = Vector2(0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8hb36"]
+bg_color = Color(0.866667, 0.886275, 0.901961, 0.0431373)
+
+[node name="SpeciesView" instance=ExtResource("1_pcf1u")]
+offset_right = 440.0
+offset_bottom = 440.0
+script = ExtResource("2_m0w72")
+
+[node name="TabName" parent="Layout/Header/HeaderColumns/TabNameContainer" index="0"]
+text = "Species: 00_00"
+
+[node name="GenomeInfo" type="MarginContainer" parent="Layout" index="1"]
+layout_mode = 2
+
+[node name="Background" type="Panel" parent="Layout/GenomeInfo" index="0"]
+layout_mode = 2
+theme = ExtResource("3_gmug2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_y54rc")
+
+[node name="TabNameContainer" type="MarginContainer" parent="Layout/GenomeInfo" index="1"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="GridContainer" type="GridContainer" parent="Layout/GenomeInfo/TabNameContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/h_separation = 40
+columns = 3
+
+[node name="Id" type="Label" parent="Layout/GenomeInfo/TabNameContainer/GridContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Id: 02_05
+"
+
+[node name="Age" type="Label" parent="Layout/GenomeInfo/TabNameContainer/GridContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Age: 5"
+
+[node name="Pop" type="Label" parent="Layout/GenomeInfo/TabNameContainer/GridContainer" index="2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Population: 5"
+
+[node name="AvgFitness" type="Label" parent="Layout/GenomeInfo/TabNameContainer/GridContainer" index="3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Avg Fitness: 2.56"
+
+[node name="BestFitness" type="Label" parent="Layout/GenomeInfo/TabNameContainer/GridContainer" index="4"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Best Fitness: 10"
+
+[node name="GenomeList" type="MarginContainer" parent="Layout" index="2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Layout/GenomeList" index="0"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Rows" type="VBoxContainer" parent="Layout/GenomeList/ScrollContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Header" type="MarginContainer" parent="Layout/GenomeList/ScrollContainer/Rows" index="0"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
+
+[node name="Background2" type="Panel" parent="Layout/GenomeList/ScrollContainer/Rows/Header" index="0"]
+self_modulate = Color(0.611765, 0.862745, 0.901961, 1)
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="Layout/GenomeList/ScrollContainer/Rows/Header" index="1"]
+layout_mode = 2
+alignment = 1
+
+[node name="Genome" type="MarginContainer" parent="Layout/GenomeList/ScrollContainer/Rows/Header/Header" index="0"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="TabName" type="Label" parent="Layout/GenomeList/ScrollContainer/Rows/Header/Header/Genome" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = SubResource("FontFile_pqf0s")
+theme_override_font_sizes/font_size = 14
+text = "Genome"
+
+[node name="Age" type="MarginContainer" parent="Layout/GenomeList/ScrollContainer/Rows/Header/Header" index="1"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="TabName" type="Label" parent="Layout/GenomeList/ScrollContainer/Rows/Header/Header/Age" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = SubResource("FontFile_pqf0s")
+theme_override_font_sizes/font_size = 14
+
+[node name="Fitness" type="MarginContainer" parent="Layout/GenomeList/ScrollContainer/Rows/Header/Header" index="2"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="TabName" type="Label" parent="Layout/GenomeList/ScrollContainer/Rows/Header/Header/Fitness" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = SubResource("FontFile_pqf0s")
+theme_override_font_sizes/font_size = 14
+text = "Fitness"
+
+[node name="Template" type="MarginContainer" parent="Layout/GenomeList/ScrollContainer/Rows" index="1"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
+
+[node name="Background" type="Panel" parent="Layout/GenomeList/ScrollContainer/Rows/Template" index="0"]
+layout_mode = 2
+theme = ExtResource("3_gmug2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_8hb36")
+
+[node name="Columns" type="HBoxContainer" parent="Layout/GenomeList/ScrollContainer/Rows/Template" index="1"]
+layout_mode = 2
+tooltip_text = "View Species"
+
+[node name="Genome" type="MarginContainer" parent="Layout/GenomeList/ScrollContainer/Rows/Template/Columns" index="0"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Value" type="Label" parent="Layout/GenomeList/ScrollContainer/Rows/Template/Columns/Genome" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = SubResource("FontFile_pqf0s")
+theme_override_font_sizes/font_size = 14
+text = "05_04
+"
+
+[node name="Age" type="MarginContainer" parent="Layout/GenomeList/ScrollContainer/Rows/Template/Columns" index="1"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_stretch_ratio = 1.07
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Value" type="Label" parent="Layout/GenomeList/ScrollContainer/Rows/Template/Columns/Age" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = SubResource("FontFile_pqf0s")
+theme_override_font_sizes/font_size = 14
+text = "
+"
+
+[node name="Fitness" type="MarginContainer" parent="Layout/GenomeList/ScrollContainer/Rows/Template/Columns" index="2"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Value" type="Label" parent="Layout/GenomeList/ScrollContainer/Rows/Template/Columns/Fitness" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = SubResource("FontFile_pqf0s")
+theme_override_font_sizes/font_size = 14
+text = "155"
+
+[node name="ViewButton" type="Button" parent="Layout/GenomeList/ScrollContainer/Rows/Template" index="2"]
+modulate = Color(0.0431373, 0.529412, 0.741176, 0.447059)
+custom_minimum_size = Vector2(40.205, 20)
+layout_mode = 2
+theme = ExtResource("3_gmug2")
+action_mode = 0
+icon = ExtResource("4_cndqj")
+icon_alignment = 2
+expand_icon = true

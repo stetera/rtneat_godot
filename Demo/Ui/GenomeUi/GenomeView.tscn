@@ -1,0 +1,102 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwitwy7xbxdpu"]
+
+[ext_resource type="PackedScene" uid="uid://s36rpgjfgsn8" path="res://Demo/Ui/Base/Window.tscn" id="1_biebq"]
+[ext_resource type="Script" path="res://Demo/Ui/GenomeUi/GenomeView.gd" id="1_kfjye"]
+[ext_resource type="Theme" uid="uid://c1vth2d2fdi2e" path="res://Demo/Ui/Other/DefaultTheme.tres" id="3_u0e83"]
+[ext_resource type="Script" path="res://Demo/Ui/GenomeUi/NetworkDrawer.gd" id="4_w04sv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x3keg"]
+bg_color = Color(0.239216, 0.239216, 0.239216, 1)
+
+[node name="Window" instance=ExtResource("1_biebq")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -512.0
+offset_right = 0.0
+offset_bottom = 400.0
+grow_horizontal = 0
+script = ExtResource("1_kfjye")
+
+[node name="GenomeInfo" type="MarginContainer" parent="Layout" index="1"]
+layout_mode = 2
+
+[node name="Background" type="Panel" parent="Layout/GenomeInfo" index="0"]
+layout_mode = 2
+theme = ExtResource("3_u0e83")
+theme_override_styles/panel = SubResource("StyleBoxFlat_x3keg")
+
+[node name="TabNameContainer" type="MarginContainer" parent="Layout/GenomeInfo" index="1"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="GridContainer" type="GridContainer" parent="Layout/GenomeInfo/TabNameContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/h_separation = 40
+columns = 3
+
+[node name="Id" type="Label" parent="Layout/GenomeInfo/TabNameContainer/GridContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Id: 02_05
+"
+
+[node name="Fitness" type="Label" parent="Layout/GenomeInfo/TabNameContainer/GridContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Fitness: 2.56"
+
+[node name="Gen" type="Label" parent="Layout/GenomeInfo/TabNameContainer/GridContainer" index="2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Gen: 2.56"
+
+[node name="NeuralInfo" type="MarginContainer" parent="Layout" index="2"]
+layout_mode = 2
+
+[node name="TabNameContainer" type="MarginContainer" parent="Layout/NeuralInfo" index="0"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="GridContainer" type="GridContainer" parent="Layout/NeuralInfo/TabNameContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/h_separation = 40
+columns = 3
+
+[node name="Links" type="Label" parent="Layout/NeuralInfo/TabNameContainer/GridContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Links: 5
+"
+
+[node name="Nodes" type="Label" parent="Layout/NeuralInfo/TabNameContainer/GridContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("3_u0e83")
+theme_type_variation = &"TooltipLabel"
+text = "Nodes: 5"
+
+[node name="NetworkContainer" type="MarginContainer" parent="Layout" index="3"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Control" type="Control" parent="Layout/NetworkContainer" index="0"]
+layout_mode = 2
+script = ExtResource("4_w04sv")
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

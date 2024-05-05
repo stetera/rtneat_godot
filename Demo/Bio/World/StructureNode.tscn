@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://WhiteSphere.png" type="Texture" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 3.0
+
+[node name="RigidBody2D" type="RigidBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0.439216, 0.458824, 1, 1 )
+scale = Vector2( 0.0522461, 0.0546875 )
+texture = ExtResource( 1 )

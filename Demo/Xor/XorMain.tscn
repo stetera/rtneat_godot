@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtpbojtffk37x"]
+
+[ext_resource type="Script" path="res://Demo/Xor/XorMain.gd" id="1_48nit"]
+
+[node name="XorDemo" type="Node2D"]
+script = ExtResource("1_48nit")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]

@@ -1,0 +1,475 @@
+[gd_scene load_steps=17 format=3 uid="uid://bc2ls7ivifptb"]
+
+[ext_resource type="Texture2D" uid="uid://b3w2dc5ckq0l8" path="res://Demo/Bio/World/Food/FoodDigest.png" id="1_8mb8k"]
+[ext_resource type="Texture2D" uid="uid://drq6sxd3y0yt4" path="res://Demo/Bio/World/Mibe/Movement0.png" id="2_g5yod"]
+[ext_resource type="Texture2D" uid="uid://cwaj023h0mdw3" path="res://Demo/Bio/World/Mibe/Movement1.png" id="3_72f65"]
+[ext_resource type="Texture2D" uid="uid://bs3cadvhaw8e3" path="res://Demo/Bio/World/Mibe/Movement2.png" id="4_ykyy8"]
+[ext_resource type="Texture2D" uid="uid://s7eo5giu605e" path="res://Demo/Bio/World/Mibe/Movement3.png" id="5_utcfa"]
+[ext_resource type="Texture2D" uid="uid://bim5rc5sulvk6" path="res://Demo/Bio/World/Mibe/Assets/BactEdgeWings.png" id="6_4p0kv"]
+[ext_resource type="Texture2D" uid="uid://g5ja6cn5g1xn" path="res://Demo/Bio/World/Mibe/Assets/BactBody.png" id="7_l434t"]
+[ext_resource type="Texture2D" uid="uid://cjaiku6fg21r5" path="res://Demo/Bio/World/Mibe/Assets/Eye.png" id="8_pbntk"]
+[ext_resource type="Texture2D" uid="uid://b8o7xy7ghxg0l" path="res://Demo/Bio/World/Mibe/Assets/Grabber.png" id="9_e75jx"]
+
+[sub_resource type="PhysicsMaterial" id="4"]
+friction = 0.01
+bounce = 0.18
+
+[sub_resource type="GDScript" id="3"]
+script/source = "extends RigidBody2D
+
+@onready var Egg: PackedScene= load(\"res://World/Egg/Egg.tscn\")
+
+# world-wide constants
+const DRAG_COEF = 0.99
+const DEFAULT_ROTATION_DAMPENING = 6
+const REPRODUCTION_COST = 420
+const REPRODUCTION_REQUIRED_ENERGY_LEVEL = 500
+
+# actor specific constants
+const MAX_ENERGY = 1000
+const DEFAULT_ENERGY = 400
+const DEFAULT_ACCELERATION = 50
+const MAX_SPEED = 500
+const DEFAULT_ROTATION_TORQUE = 0.5
+
+const ENERGY_CONSUMPTION = 0.2
+const DEATH_AGE = 1000
+const SIGHT_RANGE = 500
+const RAY_SECTION_LENGTH = 12
+const MAX_RAYS_TO_CAST = 3
+const MAX_FORWARD_VELOCITY = 200
+
+
+var added = false
+# mutable
+var _velocity = Vector2()
+var _angular_velocity = 0
+
+var energy = DEFAULT_ENERGY
+var acceleration = DEFAULT_ACCELERATION
+var speed = 0
+var rotation_torque = DEFAULT_ROTATION_TORQUE
+var age = 0
+var genome_id: int
+
+# statistics to estimate fitness
+var offspring_created = 0
+var energy_gathered = 0
+
+var raycasters = []
+var internal_food_nodes = []
+
+# signal that lets the controlling agent know it just died
+signal death
+# signal that lets the controlling agent know it should replicate
+signal reproduction()
+
+func start_assign_reproduction_id(g_id: int):
+	genome_id = g_id
+
+\"\"\" Set up the organism. Clearing gravity, creating raycasters. \"\"\"
+func _ready():
+	set_gravity_scale(0.0)
+	set_angular_damp(DEFAULT_ROTATION_DAMPENING)
+	raycasters = assign_casters()
+	
+	_load_food_content()
+
+	
+
+\"\"\" Manipulate the organism \"\"\"
+func _physics_process(delta: float) -> void:
+	_velocity *= DRAG_COEF
+	var _up_velocity = get_up_velocity()
+	_velocity = _up_velocity
+	
+	set_linear_velocity(_velocity)
+	set_angular_velocity(_angular_velocity)
+	
+	speed = -get_up_velocity().dot(transform.y)
+	
+	
+	age += delta
+	energy -= ENERGY_CONSUMPTION
+	
+	if _can_reproduce():
+		_reproduce()
+		
+	if _is_too_old() or _no_energy():
+		die()
+
+	_display_food_content()
+
+func assign_casters() -> Array:
+	var raycasters = []
+	for child in get_children():
+		if child is RayCast2D:
+			raycasters.append(child)
+	
+	raycasters.sort_custom(_sort_casters_by_name)
+			
+	return raycasters
+	
+	
+func _sort_casters_by_name(castA: RayCast2D, castB: RayCast2D):
+	return castA.name < castB.name
+
+# unused, replaced with assign_casters()
+func create_casters() -> Array:
+	var cast_arc = TAU / RAY_SECTION_LENGTH
+	var cast_angle = -cast_arc #first cast is offset to the left 
+	var created_casters = []
+
+	for _new_caster in MAX_RAYS_TO_CAST:
+		var caster = RayCast2D.new()
+		var cast_point = Vector2(0, -SIGHT_RANGE).rotated(cast_angle)
+		caster.enabled = false
+		caster.cast_to = cast_point
+		caster.collide_with_areas = false
+		caster.collide_with_bodies = true
+		add_child(caster)
+		created_casters.append(caster)
+		cast_angle += cast_arc
+
+	return created_casters
+	
+
+func get_up_velocity() -> Vector2:
+	# Returns the vehicle's forward velocity
+	return -transform.y * _velocity.dot(-transform.y)
+
+# ----------------------- EATING ---------------------------------------
+
+func _give_food(amountToGain: float):
+	energy += amountToGain
+	energy_gathered += amountToGain
+
+func _display_food_content() -> void:
+	var energy_factor = energy / MAX_ENERGY
+	var nodes_amount = internal_food_nodes.size()
+	var food_amount_to_display = round(energy_factor * nodes_amount)
+	
+	var i = 0
+	for food in internal_food_nodes:
+		i += 1
+		if i > food_amount_to_display:
+			food.visible = false
+		else:
+			food.visible = true
+
+func _load_food_content() -> void:
+	for food_node in get_node(\"EnergyHolder\").get_children():
+		internal_food_nodes.append(food_node)
+		food_node.visible = false
+	internal_food_nodes.sort()
+
+# -------------------------- MIBE ACTIONS --------------------------------
+
+func _can_reproduce() -> bool:
+	return energy > REPRODUCTION_REQUIRED_ENERGY_LEVEL
+
+func _reproduce() -> void:
+	emit_signal(\"reproduction\")
+	energy -= REPRODUCTION_COST
+	offspring_created += 1
+	
+	var parent = get_parent()
+	var egg = Egg.instance()
+	egg._start_assign_genome_id(genome_id)
+	
+	egg.global_position = global_position
+	get_parent().add_child(egg)
+	
+
+func _is_too_old() -> bool:
+	return age > DEATH_AGE
+	
+func die() -> void:
+	emit_signal(\"death\")
+	queue_free()
+	
+func _get_energy_consumption() -> float:
+	var velocity = _velocity.length() / 2000
+	return velocity
+
+func _no_energy() -> bool:
+	return energy <= 0
+
+# -------------------------- NEAT ------------------------------------
+
+func sense() -> Array:
+	\"\"\"Returns the information used to feed the neural network. Consists of num_casts
+	raycast distances, the cars speed relative to it's max velocity, the current angular
+	velocity, and the drifting factor of the car.
+	\"\"\"
+	var senses = []
+	# get the distance to the nearest obstacles
+	for caster in raycasters:
+		# this performs a raycast even though the caster is disabled
+		caster.force_raycast_update()
+		if caster.is_colliding():
+			var collision = caster.get_collision_point()
+			var distance = (collision - global_position).length()
+			var relative_distance = 2 - remap(distance, 0, SIGHT_RANGE, 0, 2)
+			#print(\"CASTER COLLISION WITH: \",caster.get_collider(), \"_\", relative_distance)
+			
+			
+			senses.append(relative_distance) # 0 IS COLLIDING OR DISTANCE
+			var colliding_item_is_food = caster.get_collider().is_in_group(\"food\")
+			if colliding_item_is_food:
+				senses.append(1)
+				caster.modulate = Color(0, relative_distance, 0)
+			else:
+				senses.append(0)
+				caster.modulate = Color(relative_distance, 0, 0)
+
+			
+		else:
+			caster.modulate = Color(0, 0, 0)
+			senses.append(-1) # 0 IS COLLIDING OR DISTANCE
+			senses.append(-1)
+	var rel_speed = remap(speed, -MAX_FORWARD_VELOCITY, MAX_FORWARD_VELOCITY, -2, 2)
+	# Append relative speed, angular_velocity and _drift_factor to the cars senses
+
+	senses.append(rel_speed) # 1, 2 RELATIVE SPEED
+	senses.append(angular_velocity) # 3, 4 ANGULAR VELOCITY
+	var energy_usage = remap(energy, 0, MAX_ENERGY, 0, 2)
+	senses.append(energy_usage) # 5
+
+	senses.append(_get_energy_consumption()) # 6
+
+	return senses
+
+func act(actions: Array) -> void:
+	
+	var accelerate = actions[0]
+
+	if accelerate > 0:
+		_velocity += -transform.y * acceleration * accelerate
+
+	var steering = actions[1]
+	_angular_velocity = steering * rotation_torque * sign(speed)
+	
+	# Prevent exceeding max velocity
+	var max_speed = (Vector2(0, -1) * MAX_FORWARD_VELOCITY).rotated(rotation)
+	var x = clamp(_velocity.x, -abs(max_speed.x), abs(max_speed.x))
+	var y = clamp(_velocity.y, -abs(max_speed.y), abs(max_speed.y))
+	_velocity = Vector2(x, y)
+
+
+func get_fitness() -> float:
+
+	var fitness = 0
+	
+	fitness += offspring_created * 20
+	fitness += energy_gathered / 100
+
+	return fitness
+
+"
+
+[sub_resource type="AnimatedTexture" id="5"]
+frames = 6
+frame_0/texture = ExtResource("2_g5yod")
+frame_0/duration = 0.1
+frame_1/texture = ExtResource("3_72f65")
+frame_1/duration = 0.1
+frame_2/texture = ExtResource("4_ykyy8")
+frame_2/duration = 0.1
+frame_3/texture = ExtResource("5_utcfa")
+frame_3/duration = 0.1
+frame_4/texture = ExtResource("3_72f65")
+frame_4/duration = 0.1
+frame_5/duration = 1.0
+
+[sub_resource type="CapsuleShape2D" id="2"]
+radius = 24.0
+height = 80.0
+
+[sub_resource type="SegmentShape2D" id="6"]
+a = Vector2(-8, -16)
+b = Vector2(0, 0)
+
+[sub_resource type="SegmentShape2D" id="7"]
+a = Vector2(-8, -16)
+b = Vector2(0, -32)
+
+[sub_resource type="RectangleShape2D" id="8"]
+size = Vector2(32, 12)
+
+[node name="Mibe" type="RigidBody2D" groups=["bodies"]]
+physics_material_override = SubResource("4")
+contact_monitor = true
+script = SubResource("3")
+
+[node name="EnergyHolder" type="Node2D" parent="."]
+scale = Vector2(1.2, 1.2)
+
+[node name="Sprite" type="Sprite2D" parent="EnergyHolder"]
+position = Vector2(0, -2.86102e-06)
+scale = Vector2(0.269531, 0.271484)
+texture = ExtResource("1_8mb8k")
+
+[node name="Sprite2" type="Sprite2D" parent="EnergyHolder"]
+position = Vector2(-7, -11)
+scale = Vector2(0.269531, 0.271484)
+texture = ExtResource("1_8mb8k")
+
+[node name="Sprite3" type="Sprite2D" parent="EnergyHolder"]
+position = Vector2(6, -13)
+scale = Vector2(0.269531, 0.271484)
+texture = ExtResource("1_8mb8k")
+
+[node name="Sprite4" type="Sprite2D" parent="EnergyHolder"]
+position = Vector2(13, 2.86102e-06)
+scale = Vector2(0.269531, 0.271484)
+texture = ExtResource("1_8mb8k")
+
+[node name="Sprite5" type="Sprite2D" parent="EnergyHolder"]
+position = Vector2(6, 12)
+scale = Vector2(0.269531, 0.271484)
+texture = ExtResource("1_8mb8k")
+
+[node name="Sprite6" type="Sprite2D" parent="EnergyHolder"]
+position = Vector2(-7, 12)
+scale = Vector2(0.269531, 0.271484)
+texture = ExtResource("1_8mb8k")
+
+[node name="Sprite7" type="Sprite2D" parent="EnergyHolder"]
+position = Vector2(-12, 1)
+scale = Vector2(0.269531, 0.271484)
+texture = ExtResource("1_8mb8k")
+
+[node name="Sprite8" type="Sprite2D" parent="EnergyHolder"]
+position = Vector2(-1, -24)
+scale = Vector2(0.269531, 0.271484)
+texture = ExtResource("1_8mb8k")
+
+[node name="Sprite9" type="Sprite2D" parent="EnergyHolder"]
+position = Vector2(-6, 24)
+scale = Vector2(0.269531, 0.271484)
+texture = ExtResource("1_8mb8k")
+
+[node name="Sprite10" type="Sprite2D" parent="EnergyHolder"]
+position = Vector2(5, 24)
+scale = Vector2(0.269531, 0.271484)
+texture = ExtResource("1_8mb8k")
+
+[node name="Sprite11" type="Sprite2D" parent="EnergyHolder"]
+position = Vector2(-3, 35)
+scale = Vector2(0.269531, 0.271484)
+texture = ExtResource("1_8mb8k")
+
+[node name="Sprite12" type="Sprite2D" parent="EnergyHolder"]
+position = Vector2(2, 43)
+scale = Vector2(0.269531, 0.271484)
+texture = ExtResource("1_8mb8k")
+
+[node name="Sprite13" type="Sprite2D" parent="EnergyHolder"]
+position = Vector2(-1, -35)
+scale = Vector2(0.269531, 0.271484)
+texture = ExtResource("1_8mb8k")
+
+[node name="Sprite2" type="Sprite2D" parent="."]
+position = Vector2(1.30385e-08, 104)
+rotation = 3.13986
+scale = Vector2(0.439602, 0.619468)
+texture = SubResource("5")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(3.33786e-06, -3.57628e-06)
+scale = Vector2(0.34375, 0.40625)
+texture = ExtResource("6_4p0kv")
+
+[node name="BodyInternal" type="Sprite2D" parent="."]
+scale = Vector2(0.390625, 0.421875)
+texture = ExtResource("7_l434t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("2")
+
+[node name="GrabberR" type="RigidBody2D" parent="."]
+visible = false
+position = Vector2(16, -64)
+scale = Vector2(-1, 1)
+sleeping = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabberR"]
+shape = SubResource("6")
+disabled = true
+
+[node name="PinJoint2D" type="PinJoint2D" parent="GrabberR"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
+bias = 0.9
+softness = 8.73
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="GrabberR"]
+shape = SubResource("7")
+disabled = true
+
+[node name="GrabberL" type="RigidBody2D" parent="."]
+visible = false
+position = Vector2(-16, -64)
+sleeping = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabberL"]
+shape = SubResource("6")
+disabled = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="GrabberL"]
+shape = SubResource("7")
+disabled = true
+
+[node name="PinJoint2D" type="PinJoint2D" parent="GrabberL"]
+position = Vector2(32, 0)
+rotation = 3.14159
+scale = Vector2(1, -1)
+node_a = NodePath("../..")
+node_b = NodePath("..")
+bias = 0.9
+softness = 8.73
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -72)
+scale = Vector2(0.928272, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -6)
+shape = SubResource("8")
+
+[node name="RayCast2" type="RayCast2D" parent="."]
+position = Vector2(-9.53674e-07, -61)
+
+[node name="Sprite" type="Sprite2D" parent="RayCast2"]
+position = Vector2(8.9407e-07, -7.62939e-06)
+scale = Vector2(0.3375, 0.36875)
+texture = ExtResource("8_pbntk")
+
+[node name="RayCast1" type="RayCast2D" parent="."]
+position = Vector2(-13, -54)
+rotation = -0.523599
+
+[node name="Sprite" type="Sprite2D" parent="RayCast1"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("8_pbntk")
+
+[node name="RayCas3" type="RayCast2D" parent="."]
+position = Vector2(13, -54)
+rotation = 0.523599
+
+[node name="Sprite" type="Sprite2D" parent="RayCas3"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("8_pbntk")
+
+[node name="Sprite3" type="Sprite2D" parent="."]
+position = Vector2(-16, -80)
+scale = Vector2(0.25, 0.3125)
+texture = ExtResource("9_e75jx")
+
+[node name="Sprite4" type="Sprite2D" parent="."]
+position = Vector2(16, -80)
+rotation = 3.14159
+scale = Vector2(0.25, -0.3125)
+texture = ExtResource("9_e75jx")
