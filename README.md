@@ -8,10 +8,9 @@ This project is not final and has missing aspects. (see: <i>"What is missing"</i
 
 ## FAQ
 
-- Where to find the engine: [https://godotengine.org/]
-- Where to find the binary: [link to release]
-- How to use this for a project: [link to wiki]
-- What are the demos: [link to wiki]
+- Where to find the engine: [Godot](https://godotengine.org/)
+- How to use this for a project: [Usage](https://github.com/stetera/rtneat_godot/wiki/Usage)
+- What are the demos: [Demos](https://github.com/stetera/rtneat_godot/wiki/About-the-Demos)
 
 ## What is missing...
 
