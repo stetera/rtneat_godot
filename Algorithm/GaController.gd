@@ -1,7 +1,7 @@
 extends Node
 
-"""This class is currently unused. If at any point multiple GA's are run in parallel
-	Then this would behave as the controller. """
+"""This class currently handles pausing, but can also handle running multiple GA's if
+the handling of agents and species is modified. Currently unsupported. """
 
 var ga_instances: Dictionary = {} # Dictionary<string, GeneticAlgorithm>
 
@@ -10,20 +10,6 @@ var is_paused: bool = false
 
 # PUBLIC API START
 
-func new_genetic_algorithm(params: Params) -> GeneticAlgorithm:
-	var params_id = params.params_id
-	if ga_instances.find_key(params_id):
-		push_error("A GeneticAlgorithm instance already exists with the ID: ", params_id)
-		return
-	
-	var _new_genetic_algorithm = GeneticAlgorithm.new()
-	ga_instances[params_id] = _new_genetic_algorithm
-	
-	
-	_new_genetic_algorithm._create_initial_population()
-	
-	return _new_genetic_algorithm
-
 func set_pause_state(paused: bool) -> void:
 	is_paused = paused
 
@@ -31,24 +17,6 @@ func set_pause_state(paused: bool) -> void:
 func get_is_paused() -> bool:
 	return is_paused
 
-
-# PRIVATE API START
-func _physics_process(delta) -> void:
-	"""Car agents update their networks every time_step seconds, and then drive
-	according to the networks output.
-	"""
-	if not is_paused:
-		_game_cycle(delta)
-		
-
-func _game_cycle(_delta: float) -> void:
-	"""Evaluation of genomes can be done here, however with rtNEAT genomes are 
-		not evaluated all at once. Instead genome evaluation is done by 
-		picking a few genomes out of the general population and evaluating them. 
-	"""
-
-	for ga: GeneticAlgorithm in ga_instances.values():
-		ga.next_timestep()
 	
 func print_highest_performer():
 	

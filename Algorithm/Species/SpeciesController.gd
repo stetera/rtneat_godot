@@ -28,9 +28,9 @@ func evaluate_all_species() -> float:
 	minimum_cull_generation for it to be removable. This signifies that 
 	the species has not improved within a given amount of generations.
 	"""
-	##Returns total average adjusted fitness
-	var _total_avg_fitness = 0.001
-	var total_adj_avg_fitness = 0.001
+	#Returns total average fitness
+	var total_avg_fitness = 0.001
+	var _total_adj_avg_fitness = 0.001
 	for species:Species in alive_ga_species.values():
 		if not species.any_genome_alive() or species.obliterate:
 			dead_ga_species[species.species_sid] = species
@@ -38,10 +38,10 @@ func evaluate_all_species() -> float:
 			continue
 			
 		species.evaluate()
-		total_adj_avg_fitness += species.get_avg_adjusted_fitness()
-		_total_avg_fitness += species.get_avg_fitness()	
+		_total_adj_avg_fitness += species.get_avg_adjusted_fitness()
+		total_avg_fitness += species.get_avg_fitness()	
 	
-	return total_adj_avg_fitness
+	return total_avg_fitness
 	
 	
 
