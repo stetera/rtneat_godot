@@ -2,7 +2,7 @@
 
 An implementation of rtNEAT by Kenneth O. Stanley for neuroevolution in a real-time, persistent environment within the Godot game engine. Building on concepts from adaptations like <i>"SharpNEAT"</i> and <i>"NEAT for Godot"</i>, this project shifts to a pooled evaluation format. This approach keeps genomes continuously active in the environment, with real-time swapping of underperforming genomes for ongoing optimization. 
 
-This project is written in GDScript for Godot 4.2.1
+This project is written in GDScript for Godot 4.2.1 <br>
 This project is tied to the Bachelors Thesis "Real-time genetic algorithm library for the Godot game engine" (TalTech, 2024)
 
 ## FAQ
