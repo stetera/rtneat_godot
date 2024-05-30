@@ -21,4 +21,4 @@ See the wiki for general information: [wiki](https://github.com/stetera/rtneat_g
 
 
 Special thanks to Paul Straberger for the first <i>NEAT for Godot</i> implementation.
-This project reuses the config loading and low-level datastructures from <i>NEAT for Godot</i>
+This project reuses the config loading and low-level datastructures from <i>[NEAT for Godot](https://github.com/pastra98/NEAT_for_Godot)</i>
